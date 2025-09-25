@@ -12,7 +12,6 @@ import { formatAge, calculateAgeInDays } from '../utils/calculations';
 import Header from './Header';
 import MeasurementForm from './MeasurementForm';
 import GrowthChart from './GrowthChart';
-import CombinedGrowthChart from './CombinedGrowthChart';
 import MeasurementHistory from './MeasurementHistory';
 
 interface MainScreenProps {
@@ -113,11 +112,14 @@ const MainScreen: React.FC<MainScreenProps> = ({
             {/* Quick Charts */}
             {measurements.length > 0 && (
               <View style={styles.quickCharts}>
+                <Text style={styles.sectionTitle}>Growth Overview</Text>
                 <View style={styles.overviewChartContainer}>
-                  <CombinedGrowthChart
+                  <GrowthChart
                     measurements={measurements}
                     babyProfile={babyProfile}
-                    height={320}
+                    type="weight"
+                    height={320} // Increased height to prevent bottom cutoff
+                    showPercentiles={false}
                   />
                 </View>
               </View>

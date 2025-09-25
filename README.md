@@ -20,6 +20,31 @@ A production-quality React Native application for tracking baby growth measureme
 - **Responsive Design**: Optimized for both phones and tablets
 - **Performance**: Handles 50+ measurements without performance degradation
 
+## 🛠️ Technology Stack
+
+### Core Framework
+- **React Native**: 0.76.9
+- **Expo SDK**: ~54.0.0 (pinned for stability)
+- **TypeScript**: ^5.1.3
+- **Runtime Version**: exposdk:54.0.0
+
+### UI & Styling
+- **Expo Vector Icons**: ^14.0.4
+- **Expo Linear Gradient**: ~14.0.2
+- **React Native SVG**: ^15.8.0
+- **React Native Chart Kit**: ^6.12.0
+
+### State & Data Management
+- **React Hook Form**: ^7.63.0
+- **AsyncStorage**: 1.23.1
+- **Date-fns**: ^4.1.0
+
+### Development Tools
+- **Jest**: ^29.2.1 (Testing)
+- **ESLint**: ^8.53.0 (Linting)
+- **Prettier**: ^3.0.3 (Code formatting)
+- **TypeScript**: ^5.1.3 (Type checking)
+
 ## 🏗 Architecture
 
 ### State Management
@@ -82,9 +107,11 @@ src/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 16+
+- Node.js (v16 or higher)
+- npm or yarn
 - Expo CLI: `npm install -g @expo/cli`
-- iOS Simulator (Mac) or Android Emulator
+- For iOS development: Xcode and iOS Simulator
+- For Android development: Android Studio and Android Emulator
 - Expo Go app for physical device testing
 
 ### Installation
@@ -98,24 +125,75 @@ cd BabyGrowthApp
 npm install
 
 # Start the development server
-npm run start
-
-# Run on specific platforms
-npm run android    # Android emulator
-npm run ios        # iOS simulator
-npm run web        # Web browser
+npm start
 ```
+
+## 📱 Available Scripts
 
 ### Development Scripts
 
 ```bash
-npm run start      # Start Expo development server
-npm run android    # Run on Android
-npm run ios        # Run on iOS
-npm run web        # Run in web browser
-npm run test       # Run Jest tests
-npm run lint       # Run ESLint
-npm run typecheck  # Run TypeScript compiler check
+# Start Expo development server
+npm start
+
+# Start with dev client
+npm run start:dev
+
+# Start with tunnel (for external device testing)
+npm run start:tunnel
+
+# Platform-specific starts
+npm run android    # Start Android
+npm run ios        # Start iOS
+npm run web        # Start Web
+```
+
+### Build Scripts
+
+```bash
+# Build for all platforms
+npm run build
+
+# Platform-specific builds
+npm run build:android
+npm run build:ios
+
+# Prebuild (generate native code)
+npm run prebuild
+npm run prebuild:clean  # Clean prebuild
+```
+
+### Quality Assurance Scripts
+
+```bash
+# Run tests
+npm test                    # Run tests once
+npm run test:watch         # Run tests in watch mode
+npm run test:coverage      # Run tests with coverage
+
+# Linting
+npm run lint              # Fix linting issues
+npm run lint:check        # Check linting without fixing
+
+# Type checking
+npm run typecheck         # Check TypeScript types
+
+# Code formatting
+npm run format            # Format code with Prettier
+npm run format:check      # Check formatting without fixing
+
+# Validate everything
+npm run validate          # Run typecheck + lint + tests
+```
+
+### Utility Scripts
+
+```bash
+# Clean cache and restart
+npm run clean
+
+# Reset and clear cache
+expo r -c
 ```
 
 ## 🧪 Testing
@@ -135,9 +213,34 @@ npm run typecheck  # Run TypeScript compiler check
 ### Running Tests
 ```bash
 npm run test                    # Run all tests
-npm run test -- --watch        # Run in watch mode
-npm run test -- --coverage     # Generate coverage report
+npm run test:watch             # Run in watch mode
+npm run test:coverage          # Generate coverage report
 ```
+
+## 🚀 Deployment
+
+### EAS Build Configuration
+The project is configured with EAS Build for streamlined deployment:
+
+```bash
+# Development build
+eas build --profile development --platform all
+
+# Preview build for testing
+eas build --profile preview --platform all
+
+# Production build
+eas build --profile production --platform all
+```
+
+### Build Profiles
+- **Development**: Development client with debugging enabled
+- **Preview**: Internal distribution for testing
+- **Production**: Optimized builds for app stores
+
+### Platform Configuration
+- **iOS**: M1-medium resource class, proper bundle identifier
+- **Android**: Adaptive icons, proper package name and permissions
 
 ## 📱 Usage Guide
 
@@ -210,7 +313,44 @@ npm run test -- --coverage     # Generate coverage report
 4. **Internationalization**: Multi-language support
 5. **Push Notifications**: Measurement reminders
 
-## 🐛 Known Issues
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Metro bundler issues**
+   ```bash
+   npm run clean
+   expo r -c
+   ```
+
+2. **TypeScript errors**
+   ```bash
+   npm run typecheck
+   ```
+
+3. **Linting issues**
+   ```bash
+   npm run lint
+   ```
+
+4. **Test failures**
+   ```bash
+   npm run test:coverage
+   ```
+
+### Platform-Specific Issues
+
+#### iOS
+- Ensure Xcode is updated
+- Check iOS Simulator version
+- Verify bundle identifier
+
+#### Android
+- Check Android SDK installation
+- Verify AVD configuration
+- Check package name
+
+### Known Issues
 
 1. **Chart Performance**: Large datasets (100+ points) may cause slight lag on older devices
 2. **Date Input**: Manual date entry on some Android keyboards
